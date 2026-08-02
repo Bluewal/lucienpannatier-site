@@ -61,7 +61,7 @@ const gallery = albums.map(a => ({ ...a, cover: byAlbum[a.slug][0].img, count: b
   <div class="wrap reveal">
     <div class="eyebrow"><span class="tag ok">OK</span><span class="prompt"><span class="u">$</span> cat skills.yaml</span></div>
     <h2>What I do now</h2>
-    <p class="lede">Where I spend my days: building and defending a Microsoft 365 security posture end to end — from architecture and identity to endpoints, threat protection, and incident response.</p>
+    <p class="lede">Where I spend my days: running and securing a Microsoft 365 environment end to end — systems administration, security engineering, and data governance in one role. From identity and endpoints to threat response, infrastructure, migrations, and Swiss data-protection compliance.</p>
     <div class="skillset">
       <div class="skillgroup">
         <div class="cat">Identity &amp; access</div>
@@ -97,20 +97,24 @@ const gallery = albums.map(a => ({ ...a, cover: byAlbum[a.slug][0].img, count: b
         </div>
       </div>
       <div class="skillgroup">
-        <div class="cat">Data protection &amp; compliance</div>
+        <div class="cat">Data governance &amp; compliance</div>
         <div class="chips">
           <span class="chip">Microsoft Purview DLP</span>
           <span class="chip">sensitivity labeling</span>
           <span class="chip">data classification</span>
+          <span class="chip">data lifecycle &amp; retention</span>
           <span class="chip">Swiss nLPD / LPD</span>
           <span class="chip">cantonal LIPDA</span>
+          <span class="chip">DPA review</span>
         </div>
       </div>
       <div class="skillgroup">
-        <div class="cat">Infrastructure &amp; automation</div>
+        <div class="cat">Systems &amp; infrastructure</div>
         <div class="chips">
-          <span class="chip">Microsoft 365 admin</span>
+          <span class="chip">Microsoft 365 administration</span>
           <span class="chip">PowerShell</span>
+          <span class="chip">endpoint fleet management</span>
+          <span class="chip">migrations</span>
           <span class="chip">self-hosting (Proxmox · Docker · Caddy)</span>
           <span class="chip">SharePoint / OneDrive</span>
           <span class="chip">DNS · networking</span>
@@ -183,6 +187,20 @@ const gallery = albums.map(a => ({ ...a, cover: byAlbum[a.slug][0].img, count: b
     <div class="eyebrow"><span class="tag ok">OK</span><span class="prompt"><span class="u">$</span> ls ~/credentials/</span></div>
     <h2>Credentials</h2>
 
+    <div class="subhead">memberships &amp; community</div>
+    <div class="grid cards">
+      <div class="card">
+        <div class="yr">2026</div>
+        <div class="ttl">Microsoft Security Advisors Program</div>
+        <div class="meta"><span>Microsoft</span><span class="s-on">member</span></div>
+      </div>
+      <div class="card">
+        <div class="yr">active</div>
+        <div class="ttl">Cybersécurité Valais</div>
+        <div class="meta"><span>Regional infosec community</span><span class="s-on">member</span></div>
+      </div>
+    </div>
+
     <div class="subhead">certifications</div>
     <div class="grid cards">
       <div class="card">
@@ -203,20 +221,6 @@ const gallery = albums.map(a => ({ ...a, cover: byAlbum[a.slug][0].img, count: b
         <div class="yr">2009 — 2011</div>
         <div class="ttl">Commercial Vocational Baccalaureate</div>
         <div class="meta"><span>ECCG-EPP, Sion</span><span class="s-ok">obtained</span></div>
-      </div>
-    </div>
-
-    <div class="subhead">memberships &amp; community</div>
-    <div class="grid cards">
-      <div class="card">
-        <div class="yr">2026</div>
-        <div class="ttl">Microsoft Security Advisors Program</div>
-        <div class="meta"><span>Microsoft</span><span class="s-on">member</span></div>
-      </div>
-      <div class="card">
-        <div class="yr">active</div>
-        <div class="ttl">Cybersécurité Valais</div>
-        <div class="meta"><span>Regional infosec community</span><span class="s-on">member</span></div>
       </div>
     </div>
   </div>
@@ -274,7 +278,7 @@ const gallery = albums.map(a => ({ ...a, cover: byAlbum[a.slug][0].img, count: b
     <h2>Get in touch</h2>
     <p class="lede">Best reached on the fediverse or X. No contact form by design — direct channels only.</p>
     <div class="channels">
-      <a class="chan" href="https://mastodon.online/@Bluewall" target="_blank" rel="me noopener"><span><span class="k">mastodon</span><br><span class="v">@Bluewall@mastodon.online</span></span><span class="arrow">→</span></a>
+      <a class="chan" href="https://infosec.exchange/@Bluewall" target="_blank" rel="me noopener"><span><span class="k">mastodon</span><br><span class="v">@Bluewall@infosec.exchange</span></span><span class="arrow">→</span></a>
       <a class="chan" href="https://x.com/Bluewall" target="_blank" rel="noopener"><span><span class="k">x</span><br><span class="v">@Bluewall</span></span><span class="arrow">→</span></a>
       <a class="chan" href="https://github.com/Bluewal" target="_blank" rel="noopener"><span><span class="k">github</span><br><span class="v">@Bluewal</span></span><span class="arrow">→</span></a>
       <a class="chan" href="mailto:contact@lucienpannatier.ch"><span><span class="k">email</span><br><span class="v">contact@lucienpannatier.ch</span></span><span class="arrow">→</span></a>
