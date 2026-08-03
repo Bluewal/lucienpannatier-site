@@ -20,13 +20,13 @@ const gallery = albums.map(a => ({ ...a, cover: byAlbum[a.slug][0].img, count: b
     <div class="console">
       <div class="console-top">
         <span class="lamp"></span><span class="lamp"></span><span class="lamp b"></span>
-        <span class="path">~/lucien — zsh</span>
+        <span class="path">~/lucien · zsh</span>
       </div>
       <div class="console-body">
         <div class="cmdline"><span class="u">lucien</span>@<span class="p">blueteam</span>:~$ <span id="typed"></span><span class="cursor" id="cursor"></span></div>
         <div class="idblock" id="idblock">
           <h1 class="name">Lucien Pannatier</h1>
-          <div class="roles"><b>IT &amp; Security Lead</b> · <b>Blue Team</b> · <b>InfoSec</b> — Valais, Switzerland</div>
+          <div class="roles"><b>IT &amp; Security Lead</b> · <b>Blue Team</b> · <b>InfoSec</b> · Valais, Switzerland</div>
           <p class="tagline">Defender by trade. I build security posture from the ground up, break my own homelab for fun, and prefer things open-source and self-hosted. Photographer on the side.</p>
           <div class="statusbar">
             <div class="svc"><span class="st ok"></span><span class="lbl">status</span><span class="val">operational</span></div>
@@ -46,11 +46,9 @@ const gallery = albums.map(a => ({ ...a, cover: byAlbum[a.slug][0].img, count: b
     <div class="eyebrow"><span class="tag info">INFO</span><span class="prompt"><span class="u">$</span> cat about.md</span></div>
     <h2>Whoami, the long version</h2>
     <div class="prose">
-      <p>I've been hooked on technology since I was 13, spending long evenings teaching myself how computers actually work.</p>
-      <p>After training as a <strong>Mediamatician</strong> with the Valais Cantonal Police, I took on a mandate from the State of Valais to migrate their land registry to a digital system — my first real-world migration under pressure.</p>
-      <p>That led me to <strong>SKIDATA</strong>, the world leader in access systems, where I spent seven years as a Certified System Engineer: running database servers, deploying and configuring access systems for customers across the region, and doing QA on new products.</p>
-      <p>Wanting broader ground, I joined <strong>CIGES</strong>, a local IT company running the infrastructure of several regional municipalities and two of Valais' largest energy providers — helpdesk, workplace support, and teaching entry-level InfoSec.</p>
-      <p>Today I'm <strong>IT &amp; Security Lead</strong> at <strong>Croix-Rouge Valais</strong>, where I run IT and own the security posture. I lean <strong>Blue Team</strong>: hardening, monitoring, incident response — turning inherited environments into something actually defensible.</p>
+      <p>I've been hooked on technology since I was 13, spending long evenings teaching myself how computers actually work, and I never really stopped.</p>
+      <p>After training as a <strong>Mediamatician</strong> with the Valais Cantonal Police, I ran my first real migration under pressure: digitizing the State of Valais land registry. Then came seven years at <strong>SKIDATA</strong> as a Certified System Engineer, running database servers, deploying access systems across the region, and doing QA on new products, followed by <strong>CIGES</strong>, where I supported regional infrastructure and taught entry-level InfoSec.</p>
+      <p>Today I'm <strong>IT &amp; Security Lead</strong> at <strong>Croix-Rouge Valais</strong>, where I run IT end to end and own the security posture. I lean <strong>Blue Team</strong>: hardening, monitoring, incident response, turning inherited environments into something actually defensible, with the systems administration and data governance that come with the role.</p>
       <p>Off the clock: a self-hosted homelab that mirrors how I work, plus cooking, photography, and (too many) video games.</p>
     </div>
   </div>
@@ -61,7 +59,7 @@ const gallery = albums.map(a => ({ ...a, cover: byAlbum[a.slug][0].img, count: b
   <div class="wrap reveal">
     <div class="eyebrow"><span class="tag ok">OK</span><span class="prompt"><span class="u">$</span> cat skills.yaml</span></div>
     <h2>What I do now</h2>
-    <p class="lede">Where I spend my days: running and securing a Microsoft 365 environment end to end — systems administration, security engineering, and data governance in one role. From identity and endpoints to threat response, infrastructure, migrations, and Swiss data-protection compliance.</p>
+    <p class="lede">Where I spend my days: running and securing a Microsoft 365 environment end to end, across systems administration, security engineering, and data governance. From identity and endpoints to threat response, infrastructure, migrations, and Swiss data-protection compliance.</p>
     <div class="skillset">
       <div class="skillgroup">
         <div class="cat">Identity &amp; access</div>
@@ -143,38 +141,38 @@ const gallery = albums.map(a => ({ ...a, cover: byAlbum[a.slug][0].img, count: b
     <p class="lede">Reverse-chronological, like any good log.</p>
     <div class="timeline">
       <div class="entry">
-        <div class="when">2026 — now</div>
-        <div class="role">IT &amp; Security Lead <span class="org">— Croix-Rouge Valais</span></div>
+        <div class="when">since 2026</div>
+        <div class="role">IT &amp; Security Lead <span class="org">· Croix-Rouge Valais</span></div>
         <div class="desc">IT operations and security ownership. Blue Team: hardening, monitoring, incident response, identity &amp; endpoint security.</div>
       </div>
       <div class="entry">
-        <div class="when">2023 — 2025</div>
-        <div class="role">Analyst Desk <span class="org">— CIGES SA</span></div>
-        <div class="desc">L1 helpdesk, IT technician, L1 InfoSec — and teaching entry-level InfoSec classes.</div>
+        <div class="when">2023-2025</div>
+        <div class="role">Analyst Desk <span class="org">· CIGES SA</span></div>
+        <div class="desc">L1 helpdesk, IT technician, L1 InfoSec, and teaching entry-level InfoSec classes.</div>
       </div>
       <div class="entry">
-        <div class="when">2016 — 2023</div>
-        <div class="role">Certified System Engineer <span class="org">— SKIDATA GmbH</span></div>
+        <div class="when">2016-2023</div>
+        <div class="role">Certified System Engineer <span class="org">· SKIDATA GmbH</span></div>
         <div class="desc">Sysadmin and database management; configuration of access systems (turnstiles, cashdesks, RFID/barcode); networking; QA &amp; testing for new products; customer training; project management.</div>
       </div>
       <div class="entry">
-        <div class="when">2015 — 4-month project</div>
-        <div class="role">Mediamatician <span class="org">— État du Valais, Land Registry</span></div>
+        <div class="when">2015, 4-month project</div>
+        <div class="role">Mediamatician <span class="org">· État du Valais, Land Registry</span></div>
         <div class="desc">RF2020: modernizing the land registry and introducing a computerized federal land-parcel information system.</div>
       </div>
       <div class="entry">
-        <div class="when">2015 — 2017</div>
-        <div class="role">Podcaster &amp; Journalist <span class="org">— EuroTechTalk.com</span><span class="badge">side</span></div>
+        <div class="when">2015-2017</div>
+        <div class="role">Podcaster &amp; Journalist <span class="org">· EuroTechTalk.com</span><span class="badge">side</span></div>
         <div class="desc">Produced a weekly one-hour live tech-news podcast (and VOD), in English.</div>
       </div>
       <div class="entry">
-        <div class="when">2011 — 2016</div>
-        <div class="role">Music Journalist <span class="org">— Tink.ch</span><span class="badge">side</span></div>
+        <div class="when">2011-2016</div>
+        <div class="role">Music Journalist <span class="org">· Tink.ch</span><span class="badge">side</span></div>
         <div class="desc">Coverage of music festivals including Caprices Festival (Crans-Montana) and Tohu-Bohu (Veyras).</div>
       </div>
       <div class="entry">
         <div class="when">2008</div>
-        <div class="role">IT Intern <span class="org">— Banque Cantonale du Valais</span></div>
+        <div class="role">IT Intern <span class="org">· Banque Cantonale du Valais</span></div>
         <div class="desc">Three-month IT internship.</div>
       </div>
     </div>
@@ -205,7 +203,7 @@ const gallery = albums.map(a => ({ ...a, cover: byAlbum[a.slug][0].img, count: b
     <div class="grid cards">
       <div class="card">
         <div class="yr">2018</div>
-        <div class="ttl">Certified System Engineer — People Access</div>
+        <div class="ttl">Certified System Engineer (People Access)</div>
         <div class="meta"><span>SKIDATA GmbH</span><span class="s-ok">obtained</span></div>
       </div>
     </div>
@@ -213,12 +211,12 @@ const gallery = albums.map(a => ({ ...a, cover: byAlbum[a.slug][0].img, count: b
     <div class="subhead">education</div>
     <div class="grid cards">
       <div class="card">
-        <div class="yr">2011 — 2015</div>
+        <div class="yr">2011-2015</div>
         <div class="ttl">Federal VET Diploma (CFC), Mediamatician</div>
         <div class="meta"><span>EPTS / Police cantonale du Valais</span><span class="s-ok">diploma</span></div>
       </div>
       <div class="card">
-        <div class="yr">2009 — 2011</div>
+        <div class="yr">2009-2011</div>
         <div class="ttl">Commercial Vocational Baccalaureate</div>
         <div class="meta"><span>ECCG-EPP, Sion</span><span class="s-ok">obtained</span></div>
       </div>
@@ -231,18 +229,18 @@ const gallery = albums.map(a => ({ ...a, cover: byAlbum[a.slug][0].img, count: b
   <div class="wrap reveal">
     <div class="eyebrow"><span class="tag info">INFO</span><span class="prompt"><span class="u">$</span> systemctl status lab</span></div>
     <h2>Projects &amp; lab</h2>
-    <p class="lede">A few things I build and run in the open. <span class="comment" style="color:var(--fg-dim)">draft descriptions — tweak the wording as you like</span></p>
+    <p class="lede">A few things I build and run in the open.</p>
     <div class="grid cards">
       <div class="card proj">
         <div class="yr">blue team</div>
         <div class="ttl">m365-intune-scripts</div>
-        <div class="meta"><span>Scripts for Microsoft 365 &amp; Intune — endpoint deployment, detection, and hardening.</span></div>
+        <div class="meta"><span>Scripts for Microsoft 365 &amp; Intune: endpoint deployment, detection, and hardening.</span></div>
         <div class="repo"><a href="https://github.com/Bluewal/m365-intune-scripts" target="_blank" rel="noopener">github.com/Bluewal/m365-intune-scripts</a></div>
       </div>
       <div class="card proj">
         <div class="yr">honeypot</div>
         <div class="ttl">OpenCanary-Dashboard</div>
-        <div class="meta"><span>A dashboard for the OpenCanary honeypot — surfacing alerts from deployed sensors.</span></div>
+        <div class="meta"><span>A dashboard for the OpenCanary honeypot, surfacing alerts from deployed sensors.</span></div>
         <div class="repo"><a href="https://github.com/Bluewal/OpenCanary-Dashboard" target="_blank" rel="noopener">github.com/Bluewal/OpenCanary-Dashboard</a></div>
       </div>
       <div class="card proj">
@@ -276,10 +274,10 @@ const gallery = albums.map(a => ({ ...a, cover: byAlbum[a.slug][0].img, count: b
   <div class="wrap reveal">
     <div class="eyebrow"><span class="tag info">INFO</span><span class="prompt"><span class="u">$</span> open ~/channels</span></div>
     <h2>Get in touch</h2>
-    <p class="lede">Best reached on the fediverse or X. No contact form by design — direct channels only.</p>
+    <p class="lede">Best reached on the fediverse or X. No contact form by design. Direct channels only.</p>
     <div class="channels">
       <a class="chan" href="https://infosec.exchange/@Bluewall" target="_blank" rel="me noopener"><span><span class="k">mastodon</span><br><span class="v">@Bluewall@infosec.exchange</span></span><span class="arrow">→</span></a>
-      <a class="chan" href="https://x.com/Bluewall" target="_blank" rel="noopener"><span><span class="k">x.com</span><br><span class="v">@Bluewall</span></span><span class="arrow">→</span></a>
+      <a class="chan" href="https://x.com/Bluewall" target="_blank" rel="noopener"><span><span class="k">x</span><br><span class="v">@Bluewall</span></span><span class="arrow">→</span></a>
       <a class="chan" href="https://github.com/Bluewal" target="_blank" rel="noopener"><span><span class="k">github</span><br><span class="v">@Bluewal</span></span><span class="arrow">→</span></a>
       <a class="chan" href="mailto:contact@lucienpannatier.ch"><span><span class="k">email</span><br><span class="v">contact@lucienpannatier.ch</span></span><span class="arrow">→</span></a>
     </div>

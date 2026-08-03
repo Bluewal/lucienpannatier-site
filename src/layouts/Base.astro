@@ -1,7 +1,7 @@
 ---
 export interface Props { title?: string; description?: string; }
 const {
-  title = 'Lucien Pannatier — IT & Security Lead · Blue Team',
+  title = 'Lucien Pannatier · IT & Security Lead · Blue Team',
   description = 'IT & Security Lead and Blue Team engineer in Valais, Switzerland. Homelab tinkerer, open-source and self-hosting advocate, part-time photographer.'
 } = Astro.props;
 const site = Astro.site ?? new URL('https://lucienpannatier.ch');
@@ -28,9 +28,6 @@ const canonical = new URL(Astro.url.pathname, site).href;
 <meta name="twitter:title" content={title} />
 <meta name="twitter:description" content={description} />
 <meta name="twitter:image" content={ogImage} />
-<link rel="preconnect" href="https://fonts.googleapis.com" />
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
 <link rel="stylesheet" href="/styles/global.css" />
 </head>
 <body>
@@ -54,7 +51,7 @@ const canonical = new URL(Astro.url.pathname, site).href;
 <slot />
 <footer>
   <div class="wrap foot">
-    <div><span class="st">●</span> all systems operational — © <span id="year"></span> Lucien Pannatier</div>
+    <div><span class="st">●</span> all systems operational · © <span id="year"></span> Lucien Pannatier</div>
     <div>built static · deployed on Cloudflare Pages</div>
   </div>
 </footer>

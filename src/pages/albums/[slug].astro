@@ -17,7 +17,7 @@ export async function getStaticPaths() {
 const { album, images } = Astro.props;
 const fulls = await Promise.all(images.map(img => getImage({ src: img, width: 2200, format: 'webp', quality: 82 })));
 ---
-<Base title={`${album.title} — Lucien Pannatier`} description={`Photography — ${album.title}, by Lucien Pannatier.`}>
+<Base title={`${album.title} · Lucien Pannatier`} description={`Photography · ${album.title}, by Lucien Pannatier.`}>
   <section class="section">
     <div class="wrap">
       <div class="eyebrow"><span class="tag info">INFO</span><span class="prompt"><span class="u">$</span> ls ~/photography/{album.slug}/</span></div>

@@ -1,6 +1,6 @@
 # lucienpannatier.ch
 
-Personal site — IT & Security Lead / Blue Team, with a photography gallery.
+Personal site - IT & Security Lead / Blue Team, with a photography gallery.
 Built with Astro (static output). Terminal / Blue Team aesthetic.
 
 ## Develop
@@ -21,10 +21,10 @@ npm run build      # -> dist/
 4. Add custom domain `lucienpannatier.ch` (repoint DNS from Adobe to Cloudflare).
 
 ## Structure
-- `src/albums/<slug>/*.jpg` — source photos (one folder per album). EXIF already stripped.
-- `src/data/albums.js` — album slugs + display titles.
-- `src/pages/index.astro` — the one-pager (hero, about, skills, career, credentials, projects, photography, contact).
-- `src/pages/albums/[slug].astro` — per-album gallery with lightbox.
+- `src/albums/<slug>/*.jpg` - source photos (one folder per album). EXIF already stripped.
+- `src/data/albums.js` - album slugs + display titles.
+- `src/pages/index.astro` - the one-pager (hero, about, skills, career, credentials, projects, photography, contact).
+- `src/pages/albums/[slug].astro` - per-album gallery with lightbox.
 - Images are optimised at build (AVIF/WebP, responsive) by Astro's asset pipeline.
 
 ## Add / change photos
