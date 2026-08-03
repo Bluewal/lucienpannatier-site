@@ -10,7 +10,7 @@
     --bg-panel:#111a2e;
     --fg:#C7D2E3;
     --fg-strong:#EAF1FB;
-    --fg-dim:#66768F;
+    --fg-dim:#7C8BA6;
     --fg-faint:#3C4759;
     --blue:#5AA2FF;
     --blue-deep:#2E6BD4;
@@ -198,11 +198,11 @@
 /* ---- subtle polish: staggered entrance + richer hovers ---- */
 .reveal .chip,.reveal .card,.reveal .album{opacity:0;transform:translateY(10px);transition:opacity .5s ease,transform .4s ease,border-color .2s ease,box-shadow .25s ease}
 .reveal.show .chip,.reveal.show .card,.reveal.show .album{opacity:1;transform:none}
-.album:hover{transform:translateY(-3px);border-color:var(--border-bright);box-shadow:0 16px 44px -18px rgba(46,107,212,.55)}
-.card:hover{transform:translateY(-2px);border-color:var(--border-bright);box-shadow:0 12px 34px -20px rgba(46,107,212,.45)}
-.skillgroup:hover{border-color:var(--border-bright);box-shadow:0 12px 34px -20px rgba(46,107,212,.4)}
+.album:hover{transform:translateY(-3px);border-color:var(--border-bright);box-shadow:0 14px 38px -22px rgba(46,107,212,.36)}
+.card:hover{transform:translateY(-2px);border-color:var(--border-bright);box-shadow:0 10px 28px -22px rgba(46,107,212,.3)}
+.skillgroup:hover{border-color:var(--border-bright);box-shadow:0 10px 28px -22px rgba(46,107,212,.28)}
 .chan{transition:border-color .2s ease,transform .2s ease,box-shadow .25s ease}
-.chan:hover{border-color:var(--border-bright);transform:translateY(-2px);box-shadow:0 12px 34px -20px rgba(46,107,212,.5)}
+.chan:hover{border-color:var(--border-bright);transform:translateY(-2px);box-shadow:0 10px 28px -22px rgba(46,107,212,.32)}
 .chan .arrow{transition:transform .2s ease,color .2s ease}
 .chan:hover .arrow{transform:translateX(4px)}
 nav a{position:relative}
@@ -215,6 +215,6 @@ nav a:hover::after{right:0}
 
 
 /* ---- hero: slow breathing glow ---- */
-@keyframes heroBreathe{0%,100%{opacity:.8;transform:translateX(-50%) scale(1)}50%{opacity:1;transform:translateX(-50%) scale(1.06)}}
-.hero-glow{animation:heroBreathe 7s ease-in-out infinite}
+@keyframes heroBreathe{0%,100%{opacity:.72;transform:translateX(-50%) scale(1)}50%{opacity:.95;transform:translateX(-50%) scale(1.04)}}
+.hero-glow{animation:heroBreathe 8s ease-in-out infinite}
 @media (prefers-reduced-motion:reduce){.hero-glow{animation:none}}
