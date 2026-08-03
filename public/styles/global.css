@@ -193,3 +193,28 @@
 .lb-close{top:18px;right:18px}
 .lb-prev{left:18px;top:50%;transform:translateY(-50%)}
 .lb-next{right:18px;top:50%;transform:translateY(-50%)}
+
+
+/* ---- subtle polish: staggered entrance + richer hovers ---- */
+.reveal .chip,.reveal .card,.reveal .album{opacity:0;transform:translateY(10px);transition:opacity .5s ease,transform .4s ease,border-color .2s ease,box-shadow .25s ease}
+.reveal.show .chip,.reveal.show .card,.reveal.show .album{opacity:1;transform:none}
+.album:hover{transform:translateY(-3px);border-color:var(--border-bright);box-shadow:0 16px 44px -18px rgba(46,107,212,.55)}
+.card:hover{transform:translateY(-2px);border-color:var(--border-bright);box-shadow:0 12px 34px -20px rgba(46,107,212,.45)}
+.skillgroup:hover{border-color:var(--border-bright);box-shadow:0 12px 34px -20px rgba(46,107,212,.4)}
+.chan{transition:border-color .2s ease,transform .2s ease,box-shadow .25s ease}
+.chan:hover{border-color:var(--border-bright);transform:translateY(-2px);box-shadow:0 12px 34px -20px rgba(46,107,212,.5)}
+.chan .arrow{transition:transform .2s ease,color .2s ease}
+.chan:hover .arrow{transform:translateX(4px)}
+nav a{position:relative}
+nav a::after{content:"";position:absolute;left:0;right:100%;bottom:-4px;height:1px;background:var(--blue);transition:right .25s ease}
+nav a:hover::after{right:0}
+@media (prefers-reduced-motion:reduce){
+  .reveal .chip,.reveal .card,.reveal .album{opacity:1;transform:none;transition:none}
+  nav a::after{display:none}
+}
+
+
+/* ---- hero: slow breathing glow ---- */
+@keyframes heroBreathe{0%,100%{opacity:.8;transform:translateX(-50%) scale(1)}50%{opacity:1;transform:translateX(-50%) scale(1.06)}}
+.hero-glow{animation:heroBreathe 7s ease-in-out infinite}
+@media (prefers-reduced-motion:reduce){.hero-glow{animation:none}}

@@ -87,7 +87,7 @@ const canonical = new URL(Astro.url.pathname, site).href;
   if (year) year.textContent = new Date().getFullYear();
 
   var io = new IntersectionObserver(function(entries){
-    entries.forEach(function(en){ if (en.isIntersecting){ en.target.classList.add('show'); io.unobserve(en.target); } });
+    entries.forEach(function(en){ if (en.isIntersecting){ en.target.classList.add('show'); en.target.querySelectorAll('.chip, .card, .album').forEach(function(k,ix){ k.style.transitionDelay = Math.min(ix*55,500) + 'ms'; }); io.unobserve(en.target); } });
   }, { threshold: .12 });
   document.querySelectorAll('.reveal').forEach(function(el){ io.observe(el); });
 
