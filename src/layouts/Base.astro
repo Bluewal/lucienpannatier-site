@@ -1,4 +1,5 @@
 ---
+import '../styles/global.css';
 export interface Props { title?: string; description?: string; }
 const {
   title = 'Lucien Pannatier · IT & Security Lead · Blue Team',
@@ -7,6 +8,16 @@ const {
 const site = Astro.site ?? new URL('https://lucienpannatier.ch');
 const ogImage = new URL('/og.png', site).href;
 const canonical = new URL(Astro.url.pathname, site).href;
+const personSchema = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": "Lucien Pannatier",
+  "jobTitle": "IT & Security Lead",
+  "url": "https://lucienpannatier.ch",
+  "address": { "@type": "PostalAddress", "addressRegion": "Valais", "addressCountry": "CH" },
+  "knowsAbout": ["Blue Team", "Information Security", "Microsoft 365", "Systems Administration", "Data Governance"],
+  "sameAs": ["https://infosec.exchange/@Bluewall", "https://github.com/Bluewal", "https://x.com/Bluewall"]
+};
 ---
 <!DOCTYPE html>
 <html lang="en">
@@ -17,6 +28,9 @@ const canonical = new URL(Astro.url.pathname, site).href;
 <meta name="description" content={description} />
 <link rel="canonical" href={canonical} />
 <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+<link rel="preload" href="/fonts/JetBrainsMono-Regular.woff2" as="font" type="font/woff2" crossorigin />
+<link rel="preload" href="/fonts/JetBrainsMono-Medium.woff2" as="font" type="font/woff2" crossorigin />
+<link rel="preload" href="/fonts/SpaceMono-Bold.woff2" as="font" type="font/woff2" crossorigin />
 <meta property="og:title" content={title} />
 <meta property="og:description" content={description} />
 <meta property="og:type" content="website" />
@@ -28,7 +42,7 @@ const canonical = new URL(Astro.url.pathname, site).href;
 <meta name="twitter:title" content={title} />
 <meta name="twitter:description" content={description} />
 <meta name="twitter:image" content={ogImage} />
-<link rel="stylesheet" href="/styles/global.css" />
+<script type="application/ld+json" set:html={JSON.stringify(personSchema)} />
 </head>
 <body>
 <header>
@@ -48,7 +62,9 @@ const canonical = new URL(Astro.url.pathname, site).href;
     </nav>
   </div>
 </header>
+<main>
 <slot />
+</main>
 <footer>
   <div class="wrap foot">
     <div><span class="st">●</span> all systems operational · © <span id="year"></span> Lucien Pannatier</div>
