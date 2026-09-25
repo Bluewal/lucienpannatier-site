@@ -11,6 +11,8 @@ for (const [p, m] of Object.entries(files)) {
 }
 for (const s in byAlbum) byAlbum[s].sort((a, b) => a.p.localeCompare(b.p));
 const gallery = albums.map(a => ({ ...a, cover: byAlbum[a.slug][0].img, count: byAlbum[a.slug].length }));
+// 6-column grid, rows of 3: when the count isn't a multiple of 3, the first albums go 2 per row so no row is left short.
+const wide = [0, 4, 2][gallery.length % 3];
 ---
 <Base>
 <!-- HERO -->
@@ -23,7 +25,7 @@ const gallery = albums.map(a => ({ ...a, cover: byAlbum[a.slug][0].img, count: b
         <span class="path">~/lucien · zsh</span>
       </div>
       <div class="console-body">
-        <div class="cmdline"><span class="u">lucien</span>@<span class="p">blueteam</span>:~$ <span id="typed"></span><span class="cursor" id="cursor"></span></div>
+        <div class="cmdline"><span class="u">lucien</span>@<span class="p">blueteam</span>:~$ <span id="typed">whoami</span><span class="cursor" id="cursor"></span></div>
         <div class="idblock" id="idblock">
           <h1 class="name">Lucien Pannatier</h1>
           <div class="roles"><b>Head of IT &amp; Information Security</b> · <b>Blue Team</b> · <b>InfoSec</b> · Valais, Switzerland</div>
@@ -31,7 +33,7 @@ const gallery = albums.map(a => ({ ...a, cover: byAlbum[a.slug][0].img, count: b
           <div class="statusbar">
             <div class="svc"><span class="st ok"></span><span class="lbl">status</span><span class="val">operational</span></div>
             <div class="svc"><span class="st on"></span><span class="lbl">homelab</span><span class="val">online</span></div>
-            <div class="svc"><span class="st on"></span><span class="lbl">photography</span><span class="val">5 albums</span></div>
+            <div class="svc"><span class="st on"></span><span class="lbl">photography</span><span class="val">{gallery.length} albums</span></div>
             <div class="svc"><span class="st ok"></span><span class="lbl">local</span><span class="val" id="clock">--:--:--</span></div>
           </div>
         </div>
@@ -187,7 +189,7 @@ const gallery = albums.map(a => ({ ...a, cover: byAlbum[a.slug][0].img, count: b
     <h2>Credentials</h2>
 
     <div class="subhead">memberships &amp; community</div>
-    <div class="grid cards">
+    <div class="grid cards cols-2">
       <div class="card">
         <div class="yr">2026</div>
         <div class="ttl">Microsoft Security Advisors Program</div>
@@ -201,7 +203,7 @@ const gallery = albums.map(a => ({ ...a, cover: byAlbum[a.slug][0].img, count: b
     </div>
 
     <div class="subhead">certifications</div>
-    <div class="grid cards">
+    <div class="grid cards cols-2">
       <div class="card">
         <div class="yr">2018</div>
         <div class="ttl">Certified System Engineer (People Access)</div>
@@ -210,7 +212,7 @@ const gallery = albums.map(a => ({ ...a, cover: byAlbum[a.slug][0].img, count: b
     </div>
 
     <div class="subhead">education</div>
-    <div class="grid cards">
+    <div class="grid cards cols-2">
       <div class="card">
         <div class="yr">2011-2015</div>
         <div class="ttl">Federal VET Diploma (CFC), Mediamatician</div>
@@ -260,8 +262,8 @@ const gallery = albums.map(a => ({ ...a, cover: byAlbum[a.slug][0].img, count: b
     <h2>Photography</h2>
     <p class="lede">Five sets, shot across Switzerland and beyond. Click an album to open the gallery.</p>
     <div class="grid gallery">
-      {gallery.map(a => (
-        <a class="album" href={`/albums/${a.slug}`}>
+      {gallery.map((a, i) => (
+        <a class:list={['album', { wide: i < wide }]} href={`/albums/${a.slug}`}>
           <div class="art"><Picture src={a.cover} formats={['avif','webp']} widths={[400, 800]} sizes="(max-width: 700px) 90vw, 30vw" alt={a.title} /></div>
           <div class="meta"><div class="name">{a.title}</div><div class="sub"><span class="y">{a.count} photos</span><span>&middot;</span><span>view album &rarr;</span></div></div>
         </a>
@@ -277,10 +279,10 @@ const gallery = albums.map(a => ({ ...a, cover: byAlbum[a.slug][0].img, count: b
     <h2>Get in touch</h2>
     <p class="lede">Best reached on the fediverse or X. No contact form by design. Direct channels only.</p>
     <div class="channels">
-      <a class="chan" href="https://infosec.exchange/@Bluewall" target="_blank" rel="me noopener"><span><span class="k">mastodon</span><br><span class="v">@Bluewall@infosec.exchange</span></span><span class="arrow">→</span></a>
+      <a class="chan" href="https://infosec.exchange/@Bluewall" target="_blank" rel="me noopener"><span><span class="k">mastodon</span><br><span class="v">@Bluewall<wbr>@infosec.exchange</span></span><span class="arrow">→</span></a>
       <a class="chan" href="https://x.com/Bluewall" target="_blank" rel="noopener"><span><span class="k">x</span><br><span class="v">@Bluewall</span></span><span class="arrow">→</span></a>
       <a class="chan" href="https://github.com/Bluewal" target="_blank" rel="noopener"><span><span class="k">github</span><br><span class="v">@Bluewal</span></span><span class="arrow">→</span></a>
-      <a class="chan" href="mailto:contact@lucienpannatier.ch"><span><span class="k">email</span><br><span class="v">contact@lucienpannatier.ch</span></span><span class="arrow">→</span></a>
+      <a class="chan" href="mailto:contact@lucienpannatier.ch"><span><span class="k">email</span><br><span class="v">contact@<wbr>lucienpannatier.ch</span></span><span class="arrow">→</span></a>
     </div>
   </div>
 </section>

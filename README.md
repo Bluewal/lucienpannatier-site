@@ -1,6 +1,6 @@
 # lucienpannatier.ch
 
-Personal site - IT & Security Lead / Blue Team, with a photography gallery.
+Personal site - Head of IT & Information Security / Blue Team, with a photography gallery.
 Built with Astro (static output). Terminal / Blue Team aesthetic.
 
 ## Develop

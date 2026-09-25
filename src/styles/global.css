@@ -31,6 +31,9 @@
   body::before{content:"";position:fixed;inset:0;background-image:linear-gradient(var(--border) 1px,transparent 1px),linear-gradient(90deg,var(--border) 1px,transparent 1px);background-size:44px 44px;opacity:.35;mask-image:radial-gradient(ellipse 90% 60% at 50% 0%,#000 20%,transparent 75%);pointer-events:none;z-index:0}
   a{color:var(--blue);text-decoration:none}
   a:hover{color:var(--fg-strong)}
+  :focus-visible{outline:2px solid var(--blue);outline-offset:3px;border-radius:4px}
+  .card:focus-visible,.album:focus-visible,.chan:focus-visible,.masonry .ph:focus-visible{outline-offset:2px;border-radius:10px}
+  .lb button:focus-visible{outline-offset:2px;border-radius:9px}
   ::selection{background:var(--blue-deep);color:var(--fg-strong)}
   .wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px;position:relative;z-index:1}
 
@@ -50,6 +53,10 @@
     nav.open ul{display:flex;position:absolute;top:56px;left:0;right:0;flex-direction:column;gap:0;background:var(--bg-elevated);border-bottom:1px solid var(--border);padding:8px 24px}
     nav.open a{padding:10px 0;border-bottom:1px solid var(--border)}
     .nav-toggle{display:block}
+    /* no JS: no toggle, links wrap under the brand */
+    html:not(.js) .bar{height:auto;min-height:56px;flex-wrap:wrap;padding:10px 0;gap:6px}
+    html:not(.js) .nav-toggle{display:none}
+    html:not(.js) nav ul{display:flex;flex-wrap:wrap;gap:4px 14px}
   }
 
   .section{padding:88px 0 24px}
@@ -81,8 +88,9 @@
   .cursor{display:inline-block;width:9px;height:1.05em;background:var(--blue);vertical-align:text-bottom;margin-left:2px;animation:blink 1.05s steps(1) infinite}
   @keyframes blink{50%{opacity:0}}
   @media (prefers-reduced-motion:reduce){.cursor{animation:none}}
-  .idblock{opacity:0;transform:translateY(6px);transition:opacity .5s ease,transform .5s ease;margin-top:20px}
-  .idblock.show{opacity:1;transform:none}
+  .idblock{margin-top:20px}
+  .js .idblock{opacity:0;transform:translateY(6px);transition:opacity .5s ease,transform .5s ease}
+  .js .idblock.show{opacity:1;transform:none}
   .name{font-family:var(--display);font-size:clamp(2.1rem,7vw,3.4rem);line-height:1.02;color:var(--fg-strong);font-weight:700;letter-spacing:-.02em}
   .roles{margin-top:10px;font-size:clamp(.95rem,2.4vw,1.15rem);color:var(--blue)}
   .roles b{color:var(--fg-strong);font-weight:500}
@@ -96,9 +104,10 @@
   .svc .val{color:var(--fg-strong)}
   #clock{font-variant-numeric:tabular-nums}
 
-  .reveal{opacity:0;transform:translateY(14px);transition:opacity .6s ease,transform .6s ease}
-  .reveal.show{opacity:1;transform:none}
-  @media (prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none}}
+  /* entrance animations only when JS runs (html.js is set in <head>); without JS everything stays visible */
+  .js .reveal{opacity:0;transform:translateY(14px);transition:opacity .6s ease,transform .6s ease}
+  .js .reveal.show{opacity:1;transform:none}
+  @media (prefers-reduced-motion:reduce){.js .reveal{opacity:1;transform:none;transition:none}}
 
   .prose p{max-width:68ch;margin-bottom:16px;color:var(--fg)}
   .prose p strong{color:var(--fg-strong);font-weight:500}
@@ -119,6 +128,8 @@
 
   .grid{display:grid;gap:14px}
   .cards{grid-template-columns:repeat(auto-fill,minmax(260px,1fr))}
+  .cards.cols-2{grid-template-columns:repeat(2,1fr)}
+  @media(max-width:640px){.cards.cols-2{grid-template-columns:1fr}}
   .card{border:1px solid var(--border);border-radius:10px;padding:16px;background:var(--bg-elevated);transition:border-color .2s,transform .2s}
   .card:hover{border-color:var(--border-bright);transform:translateY(-2px)}
   .card .yr{color:var(--blue);font-weight:700;font-size:13px;letter-spacing:.04em}
@@ -138,7 +149,19 @@
   .chips{display:flex;flex-wrap:wrap;gap:7px}
   .chip{font-size:12px;color:var(--fg);border:1px solid var(--border);border-radius:5px;padding:3px 9px;background:rgba(255,255,255,.015)}
 
-  .gallery{grid-template-columns:repeat(auto-fill,minmax(280px,1fr))}
+  /* 6 tracks: albums span 2 (3 per row), .wide ones span 3 (2 per row) so rows stay full */
+  .gallery{grid-template-columns:repeat(6,1fr)}
+  .gallery .album{grid-column:span 2}
+  .gallery .album.wide{grid-column:span 3}
+  @media(max-width:760px){
+    .gallery{grid-template-columns:repeat(2,1fr)}
+    .gallery .album,.gallery .album.wide{grid-column:span 1}
+    .gallery .album:last-child:nth-child(odd){grid-column:span 2;aspect-ratio:16/9}
+  }
+  @media(max-width:480px){
+    .gallery{grid-template-columns:1fr}
+    .gallery .album:last-child:nth-child(odd){grid-column:auto;aspect-ratio:4/3}
+  }
   .album{position:relative;aspect-ratio:4/3;border-radius:10px;overflow:hidden;border:1px solid var(--border);cursor:pointer;background:var(--bg-panel);display:flex;flex-direction:column;justify-content:flex-end;transition:transform .25s,border-color .25s}
   .album:hover{transform:translateY(-3px);border-color:var(--border-bright)}
   .album .art{position:absolute;inset:0;opacity:.9;transition:transform .4s}
@@ -157,13 +180,15 @@
   .album .sub .y{color:var(--blue)}
   .gallery-note{margin-top:18px;font-size:12.5px;color:var(--fg-dim)}
 
-  .channels{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:12px;margin-top:8px}
+  .channels{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:8px}
+  @media(max-width:900px){.channels{grid-template-columns:repeat(2,1fr)}}
+  @media(max-width:520px){.channels{grid-template-columns:1fr}}
   .chan{display:flex;align-items:center;gap:12px;border:1px solid var(--border);border-radius:10px;padding:14px 16px;background:var(--bg-elevated);transition:border-color .2s,transform .2s}
   .chan:hover{border-color:var(--border-bright);transform:translateY(-2px)}
   .chan .k{color:var(--fg-dim);font-size:12px}
   .chan .v{color:var(--fg-strong);font-size:14px}
   .chan>span:first-of-type{flex:1 1 auto;min-width:0}
-  .chan .v{overflow-wrap:anywhere}
+  .chan .v{overflow-wrap:break-word}
   .chan .arrow{margin-left:12px;color:var(--blue);flex:none}
 
   footer{border-top:1px solid var(--border);padding:26px 0 40px;margin-top:40px}
@@ -196,8 +221,8 @@
 
 
 /* ---- subtle polish: staggered entrance + richer hovers ---- */
-.reveal .chip,.reveal .card,.reveal .album{opacity:0;transform:translateY(10px);transition:opacity .5s ease,transform .4s ease,border-color .2s ease,box-shadow .25s ease}
-.reveal.show .chip,.reveal.show .card,.reveal.show .album{opacity:1;transform:none}
+.js .reveal .chip,.js .reveal .card,.js .reveal .album{opacity:0;transform:translateY(10px);transition:opacity .5s ease,transform .4s ease,border-color .2s ease,box-shadow .25s ease}
+.js .reveal.show .chip,.js .reveal.show .card,.js .reveal.show .album{opacity:1;transform:none}
 .album:hover{transform:translateY(-3px);border-color:var(--border-bright);box-shadow:0 14px 38px -22px rgba(46,107,212,.36)}
 .card:hover{transform:translateY(-2px);border-color:var(--border-bright);box-shadow:0 10px 28px -22px rgba(46,107,212,.3)}
 .skillgroup:hover{border-color:var(--border-bright);box-shadow:0 10px 28px -22px rgba(46,107,212,.28)}
@@ -209,7 +234,7 @@ nav a{position:relative}
 nav a::after{content:"";position:absolute;left:0;right:100%;bottom:-4px;height:1px;background:var(--blue);transition:right .25s ease}
 nav a:hover::after{right:0}
 @media (prefers-reduced-motion:reduce){
-  .reveal .chip,.reveal .card,.reveal .album{opacity:1;transform:none;transition:none}
+  .js .reveal .chip,.js .reveal .card,.js .reveal .album{opacity:1;transform:none;transition:none}
   nav a::after{display:none}
 }
 
