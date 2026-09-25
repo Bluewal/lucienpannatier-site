@@ -127,7 +127,7 @@
   .entry{position:relative;padding:0 0 30px 31px;background:linear-gradient(var(--border),var(--border)) no-repeat 6px 0/1px 100%}
   .entry:first-child{background-position:6px var(--dot-y)}
   .entry:last-child{background-size:1px var(--dot-y)}
-  .entry::after{content:"";position:absolute;left:6px;top:0;bottom:0;width:1px;background:var(--border-bright);transform-origin:top;transform:scaleY(var(--f,1))}
+  .entry::after{content:"";position:absolute;left:6px;top:0;bottom:0;width:1px;background:var(--blue-deep);transform-origin:top;transform:scaleY(var(--f,1))}
   .entry:first-child::after{top:var(--dot-y)}
   .entry:last-child::after{bottom:auto;height:var(--dot-y)}
   .js .entry::after{transform:scaleY(var(--f,0))}
