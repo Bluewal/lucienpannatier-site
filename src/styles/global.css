@@ -47,6 +47,8 @@
   nav a{color:var(--fg-dim);font-size:13.5px;transition:color .18s}
   nav a::before{content:"/";color:var(--fg-faint);margin-right:2px}
   nav a:hover{color:var(--blue)}
+  nav a[aria-current]{color:var(--fg-strong)}
+  nav a[aria-current]::before{color:var(--blue)}
   .nav-toggle{display:none;background:none;border:1px solid var(--border);color:var(--fg);border-radius:6px;padding:6px 10px;font-family:var(--mono);cursor:pointer}
   @media(max-width:760px){
     nav ul{display:none}
@@ -102,6 +104,13 @@
   .svc .st.on{background:var(--blue);box-shadow:0 0 8px var(--blue)}
   .svc .lbl{color:var(--fg-dim)}
   .svc .val{color:var(--fg-strong)}
+  /* hero boot: pills come up one by one after whoami, their lamp lights once "started" */
+  .js .statusbar .svc{opacity:0;transform:translateY(4px);transition:opacity .35s ease,transform .35s ease;transition-delay:calc(var(--i,0) * 180ms)}
+  .js .statusbar .svc .st{background:var(--fg-faint);box-shadow:none;transition:background .3s ease,box-shadow .3s ease;transition-delay:calc(var(--i,0) * 180ms + 220ms)}
+  .js .statusbar.boot .svc{opacity:1;transform:none}
+  .js .statusbar.boot .svc .st.ok{background:var(--ok);box-shadow:0 0 8px var(--ok)}
+  .js .statusbar.boot .svc .st.on{background:var(--blue);box-shadow:0 0 8px var(--blue)}
+  @media (prefers-reduced-motion:reduce){.js .statusbar .svc,.js .statusbar .svc .st{transition:none}}
   #clock{font-variant-numeric:tabular-nums}
 
   /* entrance animations only when JS runs (html.js is set in <head>); without JS everything stays visible */
@@ -112,10 +121,20 @@
   .prose p{max-width:68ch;margin-bottom:16px;color:var(--fg)}
   .prose p strong{color:var(--fg-strong);font-weight:500}
 
-  .timeline{border-left:1px solid var(--border);margin-left:6px}
+  .timeline{position:relative;padding-left:1px;margin-left:6px}
+  .timeline::before,.timeline::after{content:"";position:absolute;left:0;top:0;bottom:0;width:1px;background:var(--border)}
+  /* drawn part of the line: JS sets --p (0..1) from scroll position; full without JS */
+  .timeline::after{background:var(--border-bright);transform-origin:top;transform:scaleY(var(--p,1))}
+  .js .timeline::after{transform:scaleY(var(--p,0))}
   .entry{position:relative;padding:0 0 30px 26px}
-  .entry::before{content:"";position:absolute;left:-5px;top:6px;width:9px;height:9px;border-radius:50%;background:var(--bg);border:2px solid var(--blue)}
+  .entry::before{content:"";position:absolute;left:-5px;top:6px;width:9px;height:9px;border-radius:50%;background:var(--bg);border:2px solid var(--blue);z-index:1}
   .entry:first-child::before{background:var(--ok);border-color:var(--ok);box-shadow:0 0 10px var(--ok)}
+  /* points light up as the line reaches them */
+  .js .entry::before{border-color:var(--fg-faint);transition:border-color .3s ease,background .3s ease,box-shadow .3s ease}
+  .js .entry:first-child::before{background:var(--bg);border-color:var(--fg-faint);box-shadow:none}
+  .js .entry.lit::before{border-color:var(--blue)}
+  .js .entry:first-child.lit::before{background:var(--ok);border-color:var(--ok);box-shadow:0 0 10px var(--ok)}
+  @media (prefers-reduced-motion:reduce){.js .timeline::after{transform:none}.js .entry::before{transition:none}}
   .entry .when{font-size:12px;color:var(--fg-dim);letter-spacing:.03em}
   .entry .role{color:var(--fg-strong);font-weight:500;margin-top:2px}
   .entry .org{color:var(--blue)}
@@ -232,7 +251,7 @@
 .chan:hover .arrow{transform:translateX(4px)}
 nav a{position:relative}
 nav a::after{content:"";position:absolute;left:0;right:100%;bottom:-4px;height:1px;background:var(--blue);transition:right .25s ease}
-nav a:hover::after{right:0}
+nav a:hover::after,nav a[aria-current]::after{right:0}
 @media (prefers-reduced-motion:reduce){
   .js .reveal .chip,.js .reveal .card,.js .reveal .album{opacity:1;transform:none;transition:none}
   nav a::after{display:none}
