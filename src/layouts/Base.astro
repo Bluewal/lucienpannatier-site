@@ -1,5 +1,7 @@
 ---
 import '../styles/global.css';
+import { readFileSync } from 'node:fs';
+import { createHash } from 'node:crypto';
 export interface Props { title?: string; description?: string; }
 const {
   title = 'Lucien Pannatier · Head of IT & Information Security · Blue Team',
@@ -9,6 +11,8 @@ const site = Astro.site ?? new URL('https://lucienpannatier.ch');
 const ogImage = new URL('/og.png', site).href;
 const canonical = new URL(Astro.url.pathname, site).href;
 const year = new Date().getFullYear();
+// content hash in the script URL: the CSS is inlined in every page, so a cached older site.js must never pair with newer CSS
+const siteJs = '/js/site.js?v=' + createHash('sha256').update(readFileSync('public/js/site.js')).digest('hex').slice(0, 10);
 const navItems = ['about', 'skills', 'career', 'credentials', 'projects', 'photography', 'contact'];
 const onAlbum = Astro.url.pathname.startsWith('/albums/');
 const personSchema = {
@@ -49,7 +53,7 @@ const personSchema = {
 <meta name="twitter:description" content={description} />
 <meta name="twitter:image" content={ogImage} />
 <script type="application/ld+json" set:html={JSON.stringify(personSchema)} />
-<script is:inline src="/js/site.js" defer></script>
+<script is:inline src={siteJs} defer></script>
 </head>
 <body>
 <header>
