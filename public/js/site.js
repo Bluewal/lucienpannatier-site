@@ -54,30 +54,36 @@
   var sections = [].filter.call(document.querySelectorAll('main section[id]'), function(sec){ return links[sec.id]; });
   var entries = [].slice.call(document.querySelectorAll('.timeline .entry'));
   var current = null;
-  var spy = function(){
-    var line = innerHeight * 0.4, id = null;
-    sections.forEach(function(sec){ if (sec.getBoundingClientRect().top <= line) id = sec.id; });
-    if (sections.length && innerHeight + scrollY >= document.documentElement.scrollHeight - 2) id = sections[sections.length - 1].id;
-    if (id === current) return;
-    if (current) links[current].removeAttribute('aria-current');
-    if (id) links[id].setAttribute('aria-current', 'location');
-    current = id;
-  };
   var DOT_Y = 12.5; // dot centre, matches --dot-y in global.css
-  var draw = function(){
-    var line = innerHeight * 0.6, last = entries.length - 1;
-    var rects = entries.map(function(en){ return en.getBoundingClientRect(); });
-    rects.forEach(function(r, i){
-      var start = r.top + (i === 0 ? DOT_Y : 0), end = i === last ? r.top + DOT_Y : r.bottom;
-      var f = reduce ? 1 : Math.min(1, Math.max(0, (line - start) / (end - start)));
-      entries[i].style.setProperty('--f', f);
-      entries[i].classList.toggle('lit', reduce || line >= r.top + DOT_Y);
-    });
+  // every frame: all layout reads first, then all writes (no forced reflow)
+  var frame = function(){
+    var id = null, rects = null;
+    if (sections.length){
+      var line = innerHeight * 0.4;
+      sections.forEach(function(sec){ if (sec.getBoundingClientRect().top <= line) id = sec.id; });
+      if (innerHeight + scrollY >= document.documentElement.scrollHeight - 2) id = sections[sections.length - 1].id;
+    }
+    if (entries.length) rects = entries.map(function(en){ return en.getBoundingClientRect(); });
+
+    if (sections.length && id !== current){
+      if (current) links[current].removeAttribute('aria-current');
+      if (id) links[id].setAttribute('aria-current', 'location');
+      current = id;
+    }
+    if (rects){
+      var reach = innerHeight * 0.6, last = entries.length - 1;
+      rects.forEach(function(r, i){
+        var start = r.top + (i === 0 ? DOT_Y : 0), end = i === last ? r.top + DOT_Y : r.bottom;
+        var f = reduce ? 1 : Math.min(1, Math.max(0, (reach - start) / (end - start)));
+        entries[i].style.setProperty('--f', f);
+        entries[i].classList.toggle('lit', reduce || reach >= r.top + DOT_Y);
+      });
+    }
   };
   var ticking = false;
   var onScroll = function(){
     if (ticking) return; ticking = true;
-    requestAnimationFrame(function(){ ticking = false; if (sections.length) spy(); if (entries.length) draw(); });
+    requestAnimationFrame(function(){ ticking = false; frame(); });
   };
   if (sections.length || entries.length){
     addEventListener('scroll', onScroll, { passive: true });
