@@ -121,20 +121,24 @@
   .prose p{max-width:68ch;margin-bottom:16px;color:var(--fg)}
   .prose p strong{color:var(--fg-strong);font-weight:500}
 
-  .timeline{position:relative;padding-left:1px;margin-left:6px}
-  .timeline::before,.timeline::after{content:"";position:absolute;left:0;top:0;bottom:0;width:1px;background:var(--border)}
-  /* drawn part of the line: JS sets --p (0..1) from scroll position; full without JS */
-  .timeline::after{background:var(--border-bright);transform-origin:top;transform:scaleY(var(--p,1))}
-  .js .timeline::after{transform:scaleY(var(--p,0))}
-  .entry{position:relative;padding:0 0 30px 26px}
-  .entry::before{content:"";position:absolute;left:-5px;top:6px;width:9px;height:9px;border-radius:50%;background:var(--bg);border:2px solid var(--blue);z-index:1}
+  /* axis at x=6.5px: 1px line at left:6px, 13px dots at left:0. The line runs dot centre to dot centre
+     (--dot-y), one segment per entry: static track as background, drawn part as ::after scaled by --f */
+  .timeline{--dot-y:12.5px;margin-left:2px}
+  .entry{position:relative;padding:0 0 30px 31px;background:linear-gradient(var(--border),var(--border)) no-repeat 6px 0/1px 100%}
+  .entry:first-child{background-position:6px var(--dot-y)}
+  .entry:last-child{background-size:1px var(--dot-y)}
+  .entry::after{content:"";position:absolute;left:6px;top:0;bottom:0;width:1px;background:var(--border-bright);transform-origin:top;transform:scaleY(var(--f,1))}
+  .entry:first-child::after{top:var(--dot-y)}
+  .entry:last-child::after{bottom:auto;height:var(--dot-y)}
+  .js .entry::after{transform:scaleY(var(--f,0))}
+  .entry::before{content:"";position:absolute;left:0;top:6px;width:13px;height:13px;box-sizing:border-box;border-radius:50%;background:var(--bg);border:2px solid var(--blue);z-index:1}
   .entry:first-child::before{background:var(--ok);border-color:var(--ok);box-shadow:0 0 10px var(--ok)}
   /* points light up as the line reaches them */
   .js .entry::before{border-color:var(--fg-faint);transition:border-color .3s ease,background .3s ease,box-shadow .3s ease}
   .js .entry:first-child::before{background:var(--bg);border-color:var(--fg-faint);box-shadow:none}
   .js .entry.lit::before{border-color:var(--blue)}
   .js .entry:first-child.lit::before{background:var(--ok);border-color:var(--ok);box-shadow:0 0 10px var(--ok)}
-  @media (prefers-reduced-motion:reduce){.js .timeline::after{transform:none}.js .entry::before{transition:none}}
+  @media (prefers-reduced-motion:reduce){.js .entry::after{transform:none}.js .entry::before{transition:none}}
   .entry .when{font-size:12px;color:var(--fg-dim);letter-spacing:.03em}
   .entry .role{color:var(--fg-strong);font-weight:500;margin-top:2px}
   .entry .org{color:var(--blue)}
@@ -232,6 +236,9 @@
 .lb{position:fixed;inset:0;background:rgba(6,9,15,.96);display:none;align-items:center;justify-content:center;z-index:100}
 .lb.open{display:flex}
 .lb img{max-width:92vw;max-height:88vh;border:1px solid var(--border);border-radius:6px}
+.lb img{transition:opacity .15s ease}
+.lb img.swap{opacity:0}
+@media (prefers-reduced-motion:reduce){.lb img{transition:none}}
 .lb button{position:absolute;background:rgba(15,21,36,.7);border:1px solid var(--border);color:var(--fg-strong);font-size:20px;width:46px;height:46px;border-radius:9px;cursor:pointer;display:flex;align-items:center;justify-content:center}
 .lb button:hover{border-color:var(--blue);color:var(--blue)}
 .lb-close{top:18px;right:18px}
@@ -257,8 +264,11 @@ nav a:hover::after,nav a[aria-current]::after{right:0}
   nav a::after{display:none}
 }
 
-
-/* ---- hero: slow breathing glow ---- */
-@keyframes heroBreathe{0%,100%{opacity:.72;transform:translateX(-50%) scale(1)}50%{opacity:.95;transform:translateX(-50%) scale(1.04)}}
-.hero-glow{animation:heroBreathe 8s ease-in-out infinite}
-@media (prefers-reduced-motion:reduce){.hero-glow{animation:none}}
+/* ---- page transitions (cross-document View Transitions; ignored where unsupported) ---- */
+@media (prefers-reduced-motion:no-preference){
+  @view-transition{navigation:auto}
+}
+::view-transition-group(*){animation-duration:.3s}
+/* album cover (named on click, see site.js) morphs into the album's first photo, which is the same image */
+.masonry .ph:first-child{view-transition-name:album-cover}
+::view-transition-old(album-cover),::view-transition-new(album-cover){height:100%;object-fit:cover}

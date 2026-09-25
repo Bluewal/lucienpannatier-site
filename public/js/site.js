@@ -52,8 +52,7 @@
   var links = {};
   document.querySelectorAll('#navList a[href^="/#"]').forEach(function(a){ links[a.getAttribute('href').slice(2)] = a; });
   var sections = [].filter.call(document.querySelectorAll('main section[id]'), function(sec){ return links[sec.id]; });
-  var timeline = document.querySelector('.timeline');
-  var entries = timeline ? [].slice.call(timeline.querySelectorAll('.entry')) : [];
+  var entries = [].slice.call(document.querySelectorAll('.timeline .entry'));
   var current = null;
   var spy = function(){
     var line = innerHeight * 0.4, id = null;
@@ -64,23 +63,35 @@
     if (id) links[id].setAttribute('aria-current', 'location');
     current = id;
   };
+  var DOT_Y = 12.5; // dot centre, matches --dot-y in global.css
   var draw = function(){
-    var r = timeline.getBoundingClientRect();
-    var p = reduce ? 1 : Math.min(1, Math.max(0, (innerHeight * 0.6 - r.top) / r.height));
-    timeline.style.setProperty('--p', p);
-    var reach = p * r.height;
-    entries.forEach(function(en){ en.classList.toggle('lit', en.offsetTop + 10 <= reach + 0.5); });
+    var line = innerHeight * 0.6, last = entries.length - 1;
+    var rects = entries.map(function(en){ return en.getBoundingClientRect(); });
+    rects.forEach(function(r, i){
+      var start = r.top + (i === 0 ? DOT_Y : 0), end = i === last ? r.top + DOT_Y : r.bottom;
+      var f = reduce ? 1 : Math.min(1, Math.max(0, (line - start) / (end - start)));
+      entries[i].style.setProperty('--f', f);
+      entries[i].classList.toggle('lit', reduce || line >= r.top + DOT_Y);
+    });
   };
   var ticking = false;
   var onScroll = function(){
     if (ticking) return; ticking = true;
-    requestAnimationFrame(function(){ ticking = false; if (sections.length) spy(); if (timeline) draw(); });
+    requestAnimationFrame(function(){ ticking = false; if (sections.length) spy(); if (entries.length) draw(); });
   };
-  if (sections.length || timeline){
+  if (sections.length || entries.length){
     addEventListener('scroll', onScroll, { passive: true });
     addEventListener('resize', onScroll);
     onScroll();
   }
+
+  // name the clicked cover so it morphs into the album's first photo (page transition)
+  document.querySelectorAll('a.album').forEach(function(a){
+    a.addEventListener('click', function(){
+      document.querySelectorAll('.album .art').forEach(function(el){ el.style.viewTransitionName = ''; });
+      a.querySelector('.art').style.viewTransitionName = 'album-cover';
+    });
+  });
 
   // lightbox (album pages only)
   var lb = document.getElementById('lb');
@@ -90,9 +101,18 @@
     var idx = 0;
     var preloaded = {};
     var preload = function(i){ i=(i+items.length)%items.length; if (preloaded[i]) return; preloaded[i]=true; new Image().src = items[i].dataset.full; };
-    var showAt = function(i){ idx=(i+items.length)%items.length; img.src = items[idx].dataset.full; preload(idx+1); preload(idx-1); };
+    var swapTimer;
+    img.addEventListener('load', function(){ img.classList.remove('swap'); });
+    img.addEventListener('error', function(){ img.classList.remove('swap'); });
+    var setSrc = function(src){
+      clearTimeout(swapTimer);
+      if (reduce || !lb.classList.contains('open')){ img.classList.remove('swap'); img.src = src; return; }
+      img.classList.add('swap'); // short fade out, swap, fade back in once loaded
+      swapTimer = setTimeout(function(){ img.src = src; if (img.complete) img.classList.remove('swap'); }, 150);
+    };
+    var showAt = function(i){ idx=(i+items.length)%items.length; setSrc(items[idx].dataset.full); preload(idx+1); preload(idx-1); };
     var openAt = function(i){ showAt(i); lb.classList.add('open'); lb.setAttribute('aria-hidden','false'); };
-    var close = function(){ lb.classList.remove('open'); lb.setAttribute('aria-hidden','true'); img.src=''; };
+    var close = function(){ clearTimeout(swapTimer); lb.classList.remove('open'); lb.setAttribute('aria-hidden','true'); img.classList.remove('swap'); img.removeAttribute('src'); };
     var go = function(d){ showAt(idx+d); };
     items.forEach(function(a,i){ a.addEventListener('click', function(e){ e.preventDefault(); openAt(i); }); });
     lb.querySelector('.lb-close').addEventListener('click', close);
