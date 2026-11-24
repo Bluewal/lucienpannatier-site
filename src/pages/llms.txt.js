@@ -31,6 +31,7 @@ ${albums.map(a => `- [${a.title}](${site}/albums/${a.slug}/): photo album`).join
 
 - [Mastodon](https://infosec.exchange/@Bluewall): @Bluewall@infosec.exchange
 - [X](https://x.com/Bluewall): @Bluewall
+- [LinkedIn](https://www.linkedin.com/in/lucien-pannatier-10887a35/): Lucien Pannatier
 - [Email](mailto:contact@lucienpannatier.ch): contact@lucienpannatier.ch
 `;
   return new Response(body, { headers: { 'Content-Type': 'text/plain; charset=utf-8' } });

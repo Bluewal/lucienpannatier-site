@@ -1,0 +1,5 @@
+# albums merged into "elsewhere": keep old links working
+/albums/santorini   /albums/elsewhere/  301
+/albums/santorini/  /albums/elsewhere/  301
+/albums/evian       /albums/elsewhere/  301
+/albums/evian/      /albums/elsewhere/  301

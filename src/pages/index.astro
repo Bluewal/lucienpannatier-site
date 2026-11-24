@@ -49,7 +49,7 @@ const wide = [0, 4, 2][gallery.length % 3];
     <h2>Whoami, the long version</h2>
     <div class="prose">
       <p>I've been hooked on technology since I was 13, spending long evenings teaching myself how computers actually work, and I never really stopped.</p>
-      <p>After training as a <strong>Mediamatician</strong> with the Valais Cantonal Police, I ran my first real migration under pressure: digitizing the State of Valais land registry. Then came seven years at <strong>SKIDATA</strong> as a Certified System Engineer, running database servers, deploying access systems across the region, and doing QA on new products, followed by <strong>CIGES</strong>, where I supported regional infrastructure and taught entry-level InfoSec.</p>
+      <p>After training as a <strong>Mediamatician</strong> (a Swiss federal diploma blending IT and media) with the Valais Cantonal Police, I ran my first real migration under pressure: digitizing the State of Valais land registry. Then came seven years at <strong>SKIDATA</strong> as a Certified System Engineer, running database servers, deploying access systems across the region, and doing QA on new products, followed by <strong>CIGES</strong>, where I worked support up to L2-L3, handled security incidents, and taught security awareness to regional clients.</p>
       <p>Today I'm <strong>Head of IT &amp; Information Security</strong> at <strong>Croix-Rouge Valais</strong>, where I run IT end to end and own the security posture. I lean <strong>Blue Team</strong>: hardening, monitoring, incident response, turning inherited environments into something actually defensible, with the systems administration and data governance that come with the role. Beyond the technical side, I advise management on IT risk, manage vendors, and coordinate data protection with our DPO.</p>
       <p>Off the clock: a self-hosted homelab that mirrors how I work, plus cooking, photography, and (too many) video games.</p>
     </div>
@@ -149,12 +149,12 @@ const wide = [0, 4, 2][gallery.length % 3];
       <div class="entry">
         <div class="when">since 2026</div>
         <div class="role">Head of IT &amp; Information Security <span class="org">· Croix-Rouge Valais</span></div>
-        <div class="desc">I run the organization's entire Microsoft 365 environment and own its security posture. Security is where I focus: hardening, monitoring, incident response, identity &amp; endpoint protection. Also DPO Coordinator.</div>
+        <div class="desc">I run IT and own the security posture: identity-first, phishing-resistant by design, monitored, documented. I handle incidents when they happen, write the policies that prevent the next ones, and advise management on IT risk. Also DPO Coordinator.</div>
       </div>
       <div class="entry">
         <div class="when">2023-2025</div>
         <div class="role">Analyst Desk <span class="org">· CIGES SA</span></div>
-        <div class="desc">L1 helpdesk, IT technician, L1 InfoSec, and teaching entry-level InfoSec classes.</div>
+        <div class="desc">L1 helpdesk and InfoSec, taking L2-L3 cases through with the relevant teams; multi-month task force clearing a legacy ticket backlog; security incident handling; security-awareness training for OIKEN and the City of Sion; smaller IT projects.</div>
       </div>
       <div class="entry">
         <div class="when">2016-2023</div>
@@ -218,7 +218,7 @@ const wide = [0, 4, 2][gallery.length % 3];
     <div class="grid cards cols-2">
       <div class="card">
         <div class="yr">2011-2015</div>
-        <div class="ttl">Federal VET Diploma (CFC), Mediamatician</div>
+        <div class="ttl">Federal VET Diploma (CFC), Mediamatician · IT &amp; media</div>
         <div class="meta"><span>EPTS / Police cantonale du Valais</span><span class="s-ok">diploma</span></div>
       </div>
       <div class="card">
@@ -277,7 +277,7 @@ const wide = [0, 4, 2][gallery.length % 3];
   <div class="wrap reveal">
     <div class="eyebrow"><span class="tag info">INFO</span><span class="prompt"><span class="u">$</span> ls ~/photography/</span></div>
     <h2>Photography</h2>
-    <p class="lede">Five sets, shot across Switzerland and beyond. Click an album to open the gallery.</p>
+    <p class="lede">Four sets, shot across Switzerland and beyond. Click an album to open the gallery.</p>
     <div class="grid gallery">
       {gallery.map((a, i) => (
         <a class:list={['album', { wide: i < wide }]} href={`/albums/${a.slug}`}>
@@ -298,6 +298,7 @@ const wide = [0, 4, 2][gallery.length % 3];
     <div class="channels">
       <a class="chan" href="https://infosec.exchange/@Bluewall" target="_blank" rel="me noopener"><span><span class="k">mastodon</span><br><span class="v">@Bluewall<wbr>@infosec.exchange</span></span><span class="arrow">→</span></a>
       <a class="chan" href="https://x.com/Bluewall" target="_blank" rel="noopener"><span><span class="k">x</span><br><span class="v">@Bluewall</span></span><span class="arrow">→</span></a>
+      <a class="chan" href="https://www.linkedin.com/in/lucien-pannatier-10887a35/" target="_blank" rel="me noopener"><span><span class="k">linkedin</span><br><span class="v">Lucien Pannatier</span></span><span class="arrow">→</span></a>
       <a class="chan" href="https://github.com/Bluewal" target="_blank" rel="noopener"><span><span class="k">github</span><br><span class="v">@Bluewal</span></span><span class="arrow">→</span></a>
       <!--email_off--><a class="chan" href="mailto:contact@lucienpannatier.ch"><span><span class="k">email</span><br><span class="v">contact@<wbr>lucienpannatier.ch</span></span><span class="arrow">→</span></a><!--/email_off-->
     </div>
