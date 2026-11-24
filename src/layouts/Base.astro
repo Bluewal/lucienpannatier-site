@@ -5,7 +5,7 @@ import { createHash } from 'node:crypto';
 export interface Props { title?: string; description?: string; }
 const {
   title = 'Lucien Pannatier · Head of IT & Information Security · Blue Team',
-  description = 'Head of IT & Information Security and Blue Team engineer in Valais, Switzerland. Homelab tinkerer, open-source and self-hosting advocate, part-time photographer.'
+  description = 'Head of IT & Information Security and Blue Team defender in Valais, Switzerland. Homelab tinkerer, open-source and self-hosting advocate, part-time photographer.'
 } = Astro.props;
 const site = Astro.site ?? new URL('https://lucienpannatier.ch');
 const ogImage = new URL('/og.png', site).href;
