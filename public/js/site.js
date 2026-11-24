@@ -19,11 +19,40 @@
     }
   }
 
+  // "now" pill: a label picked at random from the current Valais time slot.
+  // Purely clock and calendar based; a new label is drawn only when the slot changes.
+  var NOW = {
+    A: ['brewing coffee', 'steeping tea', 'sudo make coffee', 'least privilege, maximum caffeine', 'zero trust, full mug', 'phishing-resistant, caffeine-dependent'],
+    B: ['securing things', 'hardening the blue wall', 'report-only before enforce', 'verifying logs before blocking', 'applying least privilege', "reading logs so you don't have to", 'making inherited things defensible', 'writing docs future me will thank me for'],
+    C: ['refueling', 'tea break', 'sleep 3600', 'cooking something real'],
+    D: ["it's Patch Tuesday", 'reading release notes', 'patching all the things'],
+    E: ['breaking the homelab', 'fixing what I broke', 'snapshot first, then chaos', 'self-hosting one more thing', 'docker compose up -d', 'chasing Valais by night', 'training on Mt. Silver'],
+    F: ['shooting photos', 'chasing light', 'cooking something slow', 'training on Mt. Silver', 'steeping a second pot', 'touching grass (verified)'],
+    G: ['idle', 'dreaming in YAML', 'cron jobs only', "logs rotate, I don't"]
+  };
+  var slotOf = function(wd, day, m){ // wd: 0=Sun..6=Sat, day: day of month, m: minutes since midnight
+    if (m < 360 || m >= 1350) return 'G';  // 22:30-06:00
+    if (m < 540) return 'A';               // 06:00-09:00
+    if (m >= 1050) return 'E';             // 17:30-22:30
+    if (wd === 0 || wd === 6) return 'F';  // weekend 09:00-17:30
+    if (m >= 720 && m < 810) return 'C';   // weekday 12:00-13:30
+    return (wd === 2 && day >= 8 && day <= 14) ? 'D' : 'B'; // second Tuesday of the month: Patch Tuesday
+  };
+
   var clock = document.getElementById('clock');
+  var now = document.getElementById('now');
   if (clock){
+    var fmt = null, slot = null;
+    try { fmt = new Intl.DateTimeFormat('en-GB',{timeZone:'Europe/Zurich',weekday:'short',day:'numeric',hour:'2-digit',minute:'2-digit',second:'2-digit',hourCycle:'h23'}); } catch(e){}
+    var WD = { Sun:0, Mon:1, Tue:2, Wed:3, Thu:4, Fri:5, Sat:6 };
     var tick = function(){
-      try { clock.textContent = new Intl.DateTimeFormat('en-GB',{timeZone:'Europe/Zurich',hour:'2-digit',minute:'2-digit',second:'2-digit',hour12:false}).format(new Date()); }
-      catch(e){ clock.textContent = new Date().toLocaleTimeString('en-GB'); }
+      var d = new Date(), p = {};
+      if (fmt) fmt.formatToParts(d).forEach(function(x){ p[x.type] = x.value; });
+      else p = { weekday: ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'][d.getDay()], day: d.getDate(), hour: ('0'+d.getHours()).slice(-2), minute: ('0'+d.getMinutes()).slice(-2), second: ('0'+d.getSeconds()).slice(-2) };
+      clock.textContent = p.hour + ':' + p.minute + ':' + p.second;
+      if (!now) return;
+      var s = slotOf(WD[p.weekday], +p.day, (+p.hour) * 60 + (+p.minute));
+      if (s !== slot){ slot = s; now.textContent = NOW[s][Math.floor(Math.random() * NOW[s].length)]; }
     };
     tick(); setInterval(tick, 1000);
   }

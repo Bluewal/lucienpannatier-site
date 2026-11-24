@@ -103,7 +103,8 @@
   .svc .st.ok{background:var(--ok);box-shadow:0 0 8px var(--ok)}
   .svc .st.on{background:var(--blue);box-shadow:0 0 8px var(--blue)}
   .svc .lbl{color:var(--fg-dim)}
-  .svc .val{color:var(--fg-strong)}
+  .svc .val{color:var(--fg-strong);min-width:0}
+  .svc{max-width:100%}
   /* hero boot: pills come up one by one after whoami, their lamp lights once "started" */
   .js .statusbar .svc{opacity:0;transform:translateY(4px);transition:opacity .35s ease,transform .35s ease;transition-delay:calc(var(--i,0) * 180ms)}
   .js .statusbar .svc .st{background:var(--fg-faint);box-shadow:none;transition:background .3s ease,box-shadow .3s ease;transition-delay:calc(var(--i,0) * 180ms + 220ms)}
@@ -111,6 +112,9 @@
   .js .statusbar.boot .svc .st.ok{background:var(--ok);box-shadow:0 0 8px var(--ok)}
   .js .statusbar.boot .svc .st.on{background:var(--blue);box-shadow:0 0 8px var(--blue)}
   @media (prefers-reduced-motion:reduce){.js .statusbar .svc,.js .statusbar .svc .st{transition:none}}
+  /* "now" is the only live pill: its lamp pulses like the brand dot, once it has booted */
+  .js .statusbar.boot .svc.now .st{animation:pulse 2.4s ease-in-out infinite;animation-delay:calc(var(--i,0) * 180ms + 520ms)}
+  @media (prefers-reduced-motion:reduce){.js .statusbar.boot .svc.now .st{animation:none}}
   #clock{font-variant-numeric:tabular-nums}
 
   /* entrance animations only when JS runs (html.js is set in <head>); without JS everything stays visible */
